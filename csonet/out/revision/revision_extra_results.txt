@@ -1,0 +1,52 @@
+merged n_series=447 n_patients=218  R1=15 R2=6 R3=20 R4v2=11 R3L5=18 case-mix=10
+UMC patients (have T2 SPACE) = 41; vendors: {'Siemens': 41}
+=== X0. Sanity check against S1 (must equal revision_results.txt) ===
+ target=vendor
+  R3 absolute geometry                           AUC=0.909+-0.002  OOF(seed0)=0.908 95%CI[0.870,0.945]  n_ser=447 n_pat=218
+  R4v2 graph-relational (spec+rel)               AUC=0.753+-0.002  OOF(seed0)=0.755 95%CI[0.693,0.817]  n_ser=447 n_pat=218
+  PAIRED R3 minus R4v2: +0.153 CI[+0.086,+0.217] p=0.0000
+ target=field
+  R3 absolute geometry                           AUC=0.888+-0.004  OOF(seed0)=0.889 95%CI[0.842,0.930]  n_ser=447 n_pat=218
+  R4v2 graph-relational (spec+rel)               AUC=0.813+-0.004  OOF(seed0)=0.804 95%CI[0.744,0.864]  n_ser=447 n_pat=218
+  PAIRED R3 minus R4v2: +0.085 CI[+0.025,+0.141] p=0.0050
+
+=== X1. Fair baseline: R3 without voxel volume vs the graph-relational encoding ===
+ target=vendor (full coverage, 447 series)
+  R3 minus voxel volume                          AUC=0.799+-0.004  OOF(seed0)=0.789 95%CI[0.730,0.843]  n_ser=447 n_pat=218
+  PAIRED R3 minus voxel minus R4v2: +0.034 CI[-0.025,+0.094] p=0.2770
+  fingerprint (AUC minus 0.5): R3 0.409 -> R3 minus voxel 0.299 (26.8% by dropping one feature) -> R4v2 0.253 (15.3% further)
+ target=field (full coverage, 447 series)
+  R3 minus voxel volume                          AUC=0.824+-0.002  OOF(seed0)=0.817 95%CI[0.757,0.874]  n_ser=447 n_pat=218
+  PAIRED R3 minus voxel minus R4v2: +0.013 CI[-0.045,+0.072] p=0.6450
+  fingerprint (AUC minus 0.5): R3 0.388 -> R3 minus voxel 0.324 (16.5% by dropping one feature) -> R4v2 0.313 (3.5% further)
+ target=vendor (fixed coverage L5, 446 series)
+  fixed coverage L5 minus voxel volume           AUC=0.725+-0.004  OOF(seed0)=0.725 95%CI[0.656,0.790]  n_ser=446 n_pat=218
+  fixed coverage L5 graph-relational (R4)        AUC=0.693+-0.003  OOF(seed0)=0.688 95%CI[0.617,0.758]  n_ser=446 n_pat=218
+  PAIRED L5 minus voxel minus L5 R4: +0.036 CI[-0.045,+0.111] p=0.3670
+ target=field (fixed coverage L5, 446 series)
+  fixed coverage L5 minus voxel volume           AUC=0.687+-0.002  OOF(seed0)=0.680 95%CI[0.606,0.752]  n_ser=446 n_pat=218
+  fixed coverage L5 graph-relational (R4)        AUC=0.699+-0.002  OOF(seed0)=0.686 95%CI[0.614,0.752]  n_ser=446 n_pat=218
+  PAIRED L5 minus voxel minus L5 R4: -0.007 CI[-0.092,+0.079] p=0.8610
+ vendor at fixed 1.5T
+  R3 minus voxel volume                          AUC=0.672+-0.025  OOF(seed0)=0.672 95%CI[0.497,0.819]  n_ser=253 n_pat=121
+  R4v2 graph-relational                          AUC=0.681+-0.023  OOF(seed0)=0.715 95%CI[0.548,0.859]  n_ser=253 n_pat=121
+  PAIRED R3 minus voxel minus R4v2: -0.045 CI[-0.178,+0.101] p=0.5160
+ field within Philips Ingenia
+  R3 minus voxel volume                          AUC=0.802+-0.033  OOF(seed0)=0.802 95%CI[0.650,0.930]  n_ser=211 n_pat=109
+  R4v2 graph-relational                          AUC=0.830+-0.025  OOF(seed0)=0.845 95%CI[0.737,0.938]  n_ser=211 n_pat=109
+  PAIRED R3 minus voxel minus R4v2: -0.044 CI[-0.134,+0.038] p=0.3170
+
+=== X2. ComBat (batch = vendor, in-fold) on the 17 continuous R3 features, main protocol ===
+  continuous features = 17
+ target=vendor
+  R3 continuous, raw                             AUC=0.804+-0.002  OOF(seed0)=0.804 95%CI[0.747,0.856]  n_ser=447 n_pat=218
+  R3 continuous + ComBat                         AUC=0.791+-0.007  OOF(seed0)=0.786 95%CI[0.721,0.845]  n_ser=447 n_pat=218
+  PAIRED raw minus ComBat: +0.017 CI[-0.041,+0.078] p=0.5850
+  PAIRED ComBat minus R4v2: +0.032 CI[-0.046,+0.110] p=0.4240
+ target=field
+  R3 continuous, raw                             AUC=0.818+-0.003  OOF(seed0)=0.805 95%CI[0.747,0.863]  n_ser=447 n_pat=218
+  R3 continuous + ComBat                         AUC=0.690+-0.006  OOF(seed0)=0.680 95%CI[0.605,0.750]  n_ser=447 n_pat=218
+  PAIRED raw minus ComBat: +0.125 CI[+0.078,+0.176] p=0.0000
+  PAIRED ComBat minus R4v2: -0.124 CI[-0.200,-0.057] p=0.0000
+  R3 continuous + ComBat -> degeneration (within) AUC=0.709+-0.006  OOF(seed0)=0.696 95%CI[0.624,0.769]  n_ser=447 n_pat=218
+  R3 continuous + ComBat -> narrowing (within)   AUC=0.601+-0.009  OOF(seed0)=0.578 95%CI[0.464,0.689]  n_ser=447 n_pat=218
