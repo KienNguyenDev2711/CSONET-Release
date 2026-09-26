@@ -1,0 +1,9 @@
+=== ComBat diagnostic (batch = vendor, fitted in-fold) ===
+vendor  R3 all 20         rf  raw=0.909  ComBat=0.996
+vendor  R3 all 20         lr  raw=0.863  ComBat=0.843
+vendor  R3 continuous 17  rf  raw=0.808  ComBat=0.791
+vendor  R3 continuous 17  lr  raw=0.823  ComBat=0.814
+field   R3 all 20         rf  raw=0.895  ComBat=0.921
+field   R3 all 20         lr  raw=0.880  ComBat=0.748
+field   R3 continuous 17  rf  raw=0.813  ComBat=0.689
+field   R3 continuous 17  lr  raw=0.845  ComBat=0.737

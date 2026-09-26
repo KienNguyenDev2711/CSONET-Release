@@ -1,0 +1,136 @@
+merged n_series=447 n_patients=218  R1=15 R2=6 R3=20 R4v2=11 R3L5=18 case-mix=10
+UMC patients (have T2 SPACE) = 41; vendors: {'Siemens': 41}
+
+=== S1. Hierarchy and ablation with the corrected (connected) spine graph ===
+ target=vendor
+  R1 raw intensity                               AUC=0.978+-0.000  OOF(seed0)=0.976 95%CI[0.963,0.987]  n_ser=447 n_pat=218
+  R2 normalized intensity                        AUC=0.943+-0.001  OOF(seed0)=0.943 95%CI[0.917,0.967]  n_ser=447 n_pat=218
+  R3 absolute geometry                           AUC=0.909+-0.002  OOF(seed0)=0.908 95%CI[0.870,0.945]  n_ser=447 n_pat=218
+  R4v2 graph-relational (spec+rel)               AUC=0.753+-0.002  OOF(seed0)=0.755 95%CI[0.693,0.817]  n_ser=447 n_pat=218
+  R4v2 relational only                           AUC=0.620+-0.004  OOF(seed0)=0.609 95%CI[0.530,0.683]  n_ser=447 n_pat=218
+  R4v2 spectral only                             AUC=0.694+-0.002  OOF(seed0)=0.693 95%CI[0.628,0.758]  n_ser=447 n_pat=218
+  PAIRED R3 absolute geometry minus R4v2 graph-relational (spec+rel): +0.153 CI[+0.086,+0.217] p=0.0000
+  PAIRED R3 absolute geometry minus R4v2 relational only: +0.300 CI[+0.221,+0.384] p=0.0000
+  PAIRED R4v2 graph-relational (spec+rel) minus R4v2 relational only: +0.146 CI[+0.091,+0.206] p=0.0000
+  fingerprint (AUC minus 0.5): R3 0.409 -> R4v2 graph-relational (spec+rel) 0.253  relative reduction 38.0%
+  fingerprint (AUC minus 0.5): R3 0.409 -> R4v2 relational only 0.120  relative reduction 70.7%
+ target=field
+  R1 raw intensity                               AUC=0.914+-0.001  OOF(seed0)=0.915 95%CI[0.885,0.941]  n_ser=447 n_pat=218
+  R2 normalized intensity                        AUC=0.881+-0.001  OOF(seed0)=0.882 95%CI[0.844,0.918]  n_ser=447 n_pat=218
+  R3 absolute geometry                           AUC=0.888+-0.004  OOF(seed0)=0.889 95%CI[0.842,0.930]  n_ser=447 n_pat=218
+  R4v2 graph-relational (spec+rel)               AUC=0.813+-0.004  OOF(seed0)=0.804 95%CI[0.744,0.864]  n_ser=447 n_pat=218
+  R4v2 relational only                           AUC=0.645+-0.005  OOF(seed0)=0.636 95%CI[0.566,0.709]  n_ser=447 n_pat=218
+  R4v2 spectral only                             AUC=0.749+-0.002  OOF(seed0)=0.747 95%CI[0.678,0.807]  n_ser=447 n_pat=218
+  PAIRED R3 absolute geometry minus R4v2 graph-relational (spec+rel): +0.085 CI[+0.025,+0.141] p=0.0050
+  PAIRED R3 absolute geometry minus R4v2 relational only: +0.252 CI[+0.172,+0.335] p=0.0000
+  PAIRED R4v2 graph-relational (spec+rel) minus R4v2 relational only: +0.167 CI[+0.107,+0.229] p=0.0000
+  fingerprint (AUC minus 0.5): R3 0.388 -> R4v2 graph-relational (spec+rel) 0.313  relative reduction 19.4%
+  fingerprint (AUC minus 0.5): R3 0.388 -> R4v2 relational only 0.145  relative reduction 62.6%
+
+ S1b. Downstream utility (clinical) for R3 vs R4v2 vs relational-only
+  degeneration R3               within=0.689  S->P=0.651  P->S=0.656  cross-mean=0.654
+  degeneration R4v2             within=0.632  S->P=0.644  P->S=0.618  cross-mean=0.631
+  degeneration R4v2-relational  within=0.550  S->P=0.647  P->S=0.557  cross-mean=0.602
+  degeneration R4v2-spectral    within=0.559  S->P=0.527  P->S=0.576  cross-mean=0.552
+  PAIRED within degeneration: R3 minus R4v2 = +0.050 CI[-0.035,+0.132] p=0.2220
+  PAIRED within degeneration: R3 minus R4v2-relational = +0.131 CI[+0.045,+0.219] p=0.0020
+  PAIRED cross degeneration Siemens->Philips: R4v2 minus R3 = -0.007 CI[-0.124,+0.106] p=0.9280
+  PAIRED cross degeneration Philips->Siemens: R4v2 minus R3 = -0.038 CI[-0.169,+0.088] p=0.5580
+  narrowing    R3               within=0.645  S->P=0.661  P->S=0.555  cross-mean=0.608
+  narrowing    R4v2             within=0.549  S->P=0.606  P->S=0.588  cross-mean=0.597
+  narrowing    R4v2-relational  within=0.522  S->P=0.627  P->S=0.543  cross-mean=0.585
+  narrowing    R4v2-spectral    within=0.394  S->P=0.470  P->S=0.474  cross-mean=0.472
+  PAIRED within narrowing: R3 minus R4v2 = +0.076 CI[-0.038,+0.193] p=0.2080
+  PAIRED within narrowing: R3 minus R4v2-relational = +0.094 CI[-0.043,+0.221] p=0.1570
+  PAIRED cross narrowing Siemens->Philips: R4v2 minus R3 = -0.055 CI[-0.192,+0.075] p=0.4190
+  PAIRED cross narrowing Philips->Siemens: R4v2 minus R3 = +0.037 CI[-0.120,+0.197] p=0.6380
+
+=== S2. Acquisition / coverage decomposition of the anatomical fingerprint ===
+ target=vendor
+  a. R3 full field of view                       AUC=0.909+-0.002  OOF(seed0)=0.908 95%CI[0.866,0.944]  n_ser=447 n_pat=218
+  b. R3 minus voxel volume                       AUC=0.799+-0.004  OOF(seed0)=0.789 95%CI[0.728,0.846]  n_ser=447 n_pat=218
+  c. fixed coverage L5 (R3 def.)                 AUC=0.868+-0.002  OOF(seed0)=0.865 95%CI[0.809,0.912]  n_ser=446 n_pat=218
+  d. fixed coverage L5 minus voxel volume        AUC=0.725+-0.004  OOF(seed0)=0.725 95%CI[0.657,0.791]  n_ser=446 n_pat=218
+  e. (d) excluding T2 SPACE series               AUC=0.752+-0.004  OOF(seed0)=0.746 95%CI[0.680,0.810]  n_ser=405 n_pat=216
+  f. fixed coverage L5 graph-relational (R4)     AUC=0.693+-0.003  OOF(seed0)=0.688 95%CI[0.617,0.755]  n_ser=446 n_pat=218
+  g. voxel volume ALONE                          AUC=0.891+-0.001  OOF(seed0)=0.891 95%CI[0.848,0.929]  n_ser=447 n_pat=218
+ target=field
+  a. R3 full field of view                       AUC=0.888+-0.004  OOF(seed0)=0.889 95%CI[0.840,0.933]  n_ser=447 n_pat=218
+  b. R3 minus voxel volume                       AUC=0.824+-0.002  OOF(seed0)=0.817 95%CI[0.752,0.872]  n_ser=447 n_pat=218
+  c. fixed coverage L5 (R3 def.)                 AUC=0.812+-0.002  OOF(seed0)=0.805 95%CI[0.744,0.860]  n_ser=446 n_pat=218
+  d. fixed coverage L5 minus voxel volume        AUC=0.687+-0.002  OOF(seed0)=0.680 95%CI[0.607,0.753]  n_ser=446 n_pat=218
+  e. (d) excluding T2 SPACE series               AUC=0.701+-0.004  OOF(seed0)=0.692 95%CI[0.621,0.763]  n_ser=405 n_pat=216
+  f. fixed coverage L5 graph-relational (R4)     AUC=0.699+-0.002  OOF(seed0)=0.686 95%CI[0.616,0.751]  n_ser=446 n_pat=218
+  g. voxel volume ALONE                          AUC=0.891+-0.003  OOF(seed0)=0.889 95%CI[0.845,0.929]  n_ser=447 n_pat=218
+
+=== S3. Disentangling vendor and field strength ===
+  patients by vendor x field:
+f        1.5  3.0
+v                
+Philips   18   91
+Siemens  102    7
+  scanner models x field (series):
+MagneticFieldStrength  1.5  3.0
+ManufacturerModelName          
+Aera                    33    0
+Avanto                   2    0
+Avanto_fit             151    0
+Ingenia                 30  181
+Prisma_fit               0    2
+Skyra                    0    1
+Skyra_fit                0   10
+SymphonyTim             37    0
+ vendor at fixed 1.5T (Siemens vs Philips Ingenia)
+  R2 normalized intensity                        AUC=0.930+-0.020  OOF(seed0)=0.941 95%CI[0.897,0.974]  n_ser=253 n_pat=121
+  R3 absolute geometry                           AUC=0.777+-0.034  OOF(seed0)=0.782 95%CI[0.667,0.884]  n_ser=253 n_pat=121
+  R3 minus voxel volume                          AUC=0.672+-0.025  OOF(seed0)=0.672 95%CI[0.511,0.820]  n_ser=253 n_pat=121
+  fixed coverage L5 minus voxel volume           AUC=0.645+-0.031  OOF(seed0)=0.627 95%CI[0.467,0.775]  n_ser=252 n_pat=121
+  R4v2 graph-relational                          AUC=0.681+-0.023  OOF(seed0)=0.715 95%CI[0.544,0.862]  n_ser=253 n_pat=121
+ field within Philips Ingenia (1.5T vs 3T)
+  R2 normalized intensity                        AUC=0.758+-0.015  OOF(seed0)=0.765 95%CI[0.666,0.851]  n_ser=211 n_pat=109
+  R3 absolute geometry                           AUC=0.809+-0.030  OOF(seed0)=0.811 95%CI[0.677,0.928]  n_ser=211 n_pat=109
+  R3 minus voxel volume                          AUC=0.802+-0.033  OOF(seed0)=0.802 95%CI[0.645,0.927]  n_ser=211 n_pat=109
+  fixed coverage L5 minus voxel volume           AUC=0.528+-0.022  OOF(seed0)=0.571 95%CI[0.419,0.722]  n_ser=211 n_pat=109
+  R4v2 graph-relational                          AUC=0.830+-0.025  OOF(seed0)=0.845 95%CI[0.738,0.934]  n_ser=211 n_pat=109
+
+=== S4. Case-mix (degeneration severity) control ===
+  n_series with complete case-mix covariates = 447 (patients 218); covariates=['cm_pfirr_mean', 'cm_pfirr_max', 'cm_frac_pf4', 'cm_frac_narrow', 'cm_frac_hern', 'cm_frac_bulge', 'cm_any_listh', 'cm_frac_modic', 'cm_frac_endpl', 'cm_female']
+  case-mix covariates ALONE -> vendor            AUC=0.693+-0.001  OOF(seed0)=0.686 95%CI[0.610,0.759]  n_ser=447 n_pat=218
+  R3 raw                                         AUC=0.909+-0.002  OOF(seed0)=0.908 95%CI[0.868,0.944]  n_ser=447 n_pat=218
+  R3 residualized on case-mix (in-fold)          AUC=0.886+-0.003  OOF(seed0)=0.886 95%CI[0.841,0.925]  n_ser=447 n_pat=218
+  R3 minus voxel raw                             AUC=0.799+-0.004  OOF(seed0)=0.789 95%CI[0.726,0.844]  n_ser=447 n_pat=218
+  R3 minus voxel residualized on case-mix (in-fold) AUC=0.754+-0.003  OOF(seed0)=0.760 95%CI[0.696,0.818]  n_ser=447 n_pat=218
+  R4v2 raw                                       AUC=0.753+-0.002  OOF(seed0)=0.755 95%CI[0.688,0.815]  n_ser=447 n_pat=218
+  R4v2 residualized on case-mix (in-fold)        AUC=0.678+-0.003  OOF(seed0)=0.676 95%CI[0.600,0.741]  n_ser=447 n_pat=218
+ stratum degeneration=1: patients Siemens/Philips = 84/65
+  R3 within stratum                              AUC=0.887+-0.013  OOF(seed0)=0.905 95%CI[0.847,0.950]  n_ser=319 n_pat=149
+  R3 minus voxel within stratum                  AUC=0.812+-0.013  OOF(seed0)=0.821 95%CI[0.749,0.884]  n_ser=319 n_pat=149
+ stratum degeneration=0: patients Siemens/Philips = 25/44
+  R3 within stratum                              AUC=0.842+-0.026  OOF(seed0)=0.852 95%CI[0.726,0.956]  n_ser=128 n_pat=69
+  R3 minus voxel within stratum                  AUC=0.664+-0.026  OOF(seed0)=0.639 95%CI[0.477,0.785]  n_ser=128 n_pat=69
+
+=== S5. Annotation / sequence evidence ===
+  patients with both T1 and T2 = 190 (same patient, visit, scanner; masks drawn on different images)
+  sequence T2 vs T1 from R3 minus voxel          AUC=0.501+-0.003  OOF(seed0)=0.505 95%CI[0.488,0.524]  n_ser=380 n_pat=190
+  sequence T2 vs T1 from fixed-coverage L5 minus voxel AUC=0.519+-0.004  OOF(seed0)=0.516 95%CI[0.496,0.537]  n_ser=379 n_pat=190
+  sequence T2 vs T1 from R4v2                    AUC=0.498+-0.005  OOF(seed0)=0.509 95%CI[0.490,0.528]  n_ser=380 n_pat=190
+  vert_vol_mean_a5: within-patient T2 vs T1 relative difference mean=+0.003 median|.|=0.000 (n=189)
+  disc_vol_mean_a5: within-patient T2 vs T1 relative difference mean=+0.004 median|.|=0.000 (n=189)
+  spine_length_mm_a5: within-patient T2 vs T1 relative difference mean=-0.000 median|.|=0.000 (n=189)
+ excluding UMC (masks resampled from 3D SPACE annotations)
+  R3 vendor, non-UMC                             AUC=0.923+-0.003  OOF(seed0)=0.938 95%CI[0.893,0.975]  n_ser=328 n_pat=177
+  R3 minus voxel vendor, non-UMC                 AUC=0.648+-0.003  OOF(seed0)=0.656 95%CI[0.574,0.733]  n_ser=328 n_pat=177
+  R3 minus voxel vendor, T1 series only          AUC=0.790+-0.003  OOF(seed0)=0.780 95%CI[0.712,0.842]  n_ser=196 n_pat=196
+  R3 minus voxel vendor, T2 series only          AUC=0.763+-0.006  OOF(seed0)=0.743 95%CI[0.674,0.806]  n_ser=210 n_pat=210
+
+=== S6. ComBat (neuroCombat, batch = vendor) fitted inside each training fold ===
+  R3 + ComBat -> vendor                          AUC=0.997+-0.000  OOF(seed0)=0.996 95%CI[0.991,0.999]  n_ser=447 n_pat=218
+  R3 + ComBat -> field                           AUC=0.922+-0.002  OOF(seed0)=0.915 95%CI[0.871,0.954]  n_ser=447 n_pat=218
+  R3 + ComBat -> degeneration (within)           AUC=0.716+-0.008  OOF(seed0)=0.707 95%CI[0.627,0.777]  n_ser=447 n_pat=218
+  R3 + ComBat -> narrowing (within)              AUC=0.620+-0.014  OOF(seed0)=0.611 95%CI[0.499,0.725]  n_ser=447 n_pat=218
+
+=== S7. k-NN similarity network: same-patient edges and permutation null ===
+  |V|=447 |E|=2599  same-patient edges=256 (9.8%)
+  vendor: assortativity=0.418  without same-patient edges=0.355  patient-level null mean=0.092 95th pct=0.150  p=0.0010 (1000 perms)
+  field: assortativity=0.442  without same-patient edges=0.385  patient-level null mean=0.093 95th pct=0.152  p=0.0010 (1000 perms)
+  greedy modularity communities=7  NMI(vendor)=0.043
