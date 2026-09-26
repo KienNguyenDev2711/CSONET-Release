@@ -45,3 +45,7 @@ unconnected, so every graph was disconnected (lambda_2 = 0). `10_extract_revisio
 builds the corrected, connected graph (disc k linked to vertebrae k minus 1 and k). All graph
 numbers in the camera-ready paper come from the corrected graph. `04_graph_features.py` is kept
 only so that the submitted numbers remain reproducible.
+
+## License
+
+Code: MIT (see `LICENSE`). Derived data files: CC BY 4.0, with attribution to the SPIDER authors.
