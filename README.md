@@ -35,7 +35,7 @@ neuroCombat (for the ComBat baseline). Run every script from the repository root
 | 5 | `csonet/05_downstream_clinical.py`, `08_bootstrap_ci.py`, `09_confound_shortcut.py` | clinical utility, bootstrap, confound |
 | 6 | `csonet/10_extract_revision_features.py data/spider/masks` | `out/revision/graph_full.csv` (R4, corrected graph), `graph_L5.csv`, `absolute_L5.csv` |
 | 7 | `csonet/11_revision_analyses.py`, `csonet/11b_combat_diagnostic.py` | `out/revision/revision_results.txt` (all numbers in the camera-ready paper) |
-| 8 | `csonet/12_permutation_rf.py` | `out/revision/permutation_rf_results.txt` |
+| 8 | `csonet/12_permutation_rf.py` (or `csonet/kaggle_permutation_rf.py` on a Kaggle CPU notebook) | `out/revision/permutation_rf_results.txt` |
 | 9 | `csonet/13_fig_pipeline.py` | Fig. 1 (pipeline) |
 
 ## Correction notice (camera-ready)

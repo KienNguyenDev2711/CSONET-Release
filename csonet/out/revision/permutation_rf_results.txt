@@ -1,0 +1,4 @@
+vendor  R3              RF AUC=0.909  null mean=0.500 95th=0.585 max=0.671  p=0.0010  (N=1000)
+vendor  R3 minus voxel  RF AUC=0.793  null mean=0.500 95th=0.582 max=0.659  p=0.0010  (N=1000)
+field   R3              RF AUC=0.895  null mean=0.498 95th=0.591 max=0.658  p=0.0010  (N=1000)
+field   R3 minus voxel  RF AUC=0.826  null mean=0.498 95th=0.589 max=0.654  p=0.0010  (N=1000)
