@@ -1,5 +1,5 @@
 """CSoNet camera-ready: study-design overview figure (reviewer 2).
-Drawn at the LNCS text width (12.2 cm = 4.8 in) so fonts print at their nominal size.
+Drawn at the LNCS text width (12.2 cm = 4.8 in) so fonts print at their nominal size; no text below 6 pt (LNCS Sect. 4.5).
 Data flow: SPIDER -> four representations -> ONE arrow into a group of four PARALLEL
 analyses (no arrows between analyses, since none feeds another). The spine graph is a
 detail of R4 and is linked to it by a dashed line, not by a data-flow arrow.
@@ -14,7 +14,7 @@ from matplotlib.patches import FancyBboxPatch, Ellipse
 
 plt.rcParams.update({"font.family": "serif", "font.size": 6.0,
                      "pdf.fonttype": 42, "ps.fonttype": 42})
-W, H = 4.8, 1.85
+W, H = 4.8, 2.05
 fig, ax = plt.subplots(figsize=(W, H))
 fig.subplots_adjust(0, 0, 1, 1)
 ax.set_xlim(0, 122); ax.set_ylim(0, 54); ax.axis("off")
@@ -29,7 +29,7 @@ def circle(xy, r, **kw):
     return Ellipse(xy, 2 * r, 2 * r * k, **kw)
 
 
-def box(x, y, w, h, title, body, fc, tfs=6.0, bfs=5.3, uses=None):
+def box(x, y, w, h, title, body, fc, tfs=6.5, bfs=6.0, uses=None):
     """uses: which representations the analysis takes as input (italic footer line)."""
     ax.add_patch(FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0,rounding_size=1.5",
                                 fc=fc, ec="#555", lw=0.6))
@@ -53,41 +53,43 @@ def arrow(x0, y0, x1, y1):
 
 
 # ---------------------------------------------------------------- input
-box(0.8, 9.5, 15.5, 36, "SPIDER",
+box(0.4, 8.5, 16.2, 38, "SPIDER",
     "447 series\n218 patients\n4 hospitals\n\nexpert\nmasks\n\nvendor,\nfield", C_IN)
 
 # ---------------------------------------------------------------- representations
-reps = [(40.0, "R1, R2 intensity", "raw signal in masks;\nratios, z scores"),
-        (26.2, "R3 mask geometry", "volumes, spacing,\ncounts, voxel size"),
-        (12.4, "R4 graph-relational", "Laplacian spectrum\n+ scale-free ratios")]
+RH = 12.2            # height of a representation box, data units
+reps = [(41.2, "R1, R2 intensity", "raw signal in masks;\nratios, z scores"),
+        (28.2, "R3 mask geometry", "volumes, spacing,\ncounts, voxel size"),
+        (15.2, "R4 graph-relational", "Laplacian spectrum\n+ scale-free ratios")]
 for y, t, b in reps:
-    box(20.5, y, 26.5, 12.5, t, b, C_REP, tfs=5.7)
-    arrow(16.5, 27.5, 20.3, y + 6.25)
+    box(19.5, y, 28.5, RH, t, b, C_REP, tfs=6.2)
+    arrow(16.6, 27.5, 19.3, y + RH / 2)
 
 # collector: all representations -> analyses (one data-flow arrow)
 xb = 50.0
-for y, _, _ in reps:
-    ax.plot([47.0, xb], [y + 6.25, y + 6.25], c="#333", lw=0.7)
-ax.plot([xb, xb], [18.65, 46.25], c="#333", lw=0.7)
-arrow(xb, 32.45, 62.8, 32.45)
+ymid = [y + RH / 2 for y, _, _ in reps]
+for ym in ymid:
+    ax.plot([48.0, xb], [ym, ym], c="#333", lw=0.7)
+ax.plot([xb, xb], [min(ymid), max(ymid)], c="#333", lw=0.7)
+arrow(xb, sum(ymid) / 3, 62.8, sum(ymid) / 3)
 
 # ---------------------------------------------------------------- spine graph (detail of R4)
-px, py, pw, ph = 18.5, 0.4, 34.0, 10.0
+px, py, pw, ph = 17.0, 0.4, 37.0, 13.4
 ax.add_patch(FancyBboxPatch((px, py), pw, ph, boxstyle="round,pad=0,rounding_size=1.2",
                             fc="white", ec="#999", lw=0.5, ls=(0, (3, 2))))
-ax.plot([33.7, 33.7], [12.4, py + ph], c="#999", lw=0.5, ls=(0, (2, 1.5)))
-xs = [px + 3.5 + 4.6 * i for i in range(4)]; yv = py + 7.0; cx, cy = xs[0] + 6.9, py + 2.6
+ax.plot([33.7, 33.7], [15.2, py + ph], c="#999", lw=0.5, ls=(0, (2, 1.5)))
+xs = [px + 3.4 + 6.8 * i for i in range(3)]; yv = py + 9.4; cx, cy = xs[1], py + 3.3
 for i, x in enumerate(xs):
     if i:
         ax.plot([xs[i - 1], x], [yv, yv], c="#444", lw=0.6, zorder=2)
-        ax.add_patch(circle(((xs[i - 1] + x) / 2, yv), 0.7, fc="#e0a458", ec="k", lw=0.3, zorder=3))
+        ax.add_patch(circle(((xs[i - 1] + x) / 2, yv), 1.0, fc="#e0a458", ec="k", lw=0.3, zorder=3))
     ax.plot([x, cx], [yv, cy], c="#9aa", lw=0.5, zorder=1)
-    ax.add_patch(circle((x, yv), 1.35, fc="#5b7fb5", ec="k", lw=0.3, zorder=3))
-    ax.text(x, yv, f"V{i + 1}", ha="center", va="center", fontsize=3.8, color="w", zorder=4)
-ax.add_patch(circle((cx, cy), 1.35, fc="#6aa56e", ec="k", lw=0.3, zorder=3))
-ax.text(cx, cy, "C", ha="center", va="center", fontsize=4.2, color="w", zorder=4)
+    ax.add_patch(circle((x, yv), 2.2, fc="#5b7fb5", ec="k", lw=0.3, zorder=3))
+    ax.text(x, yv, f"V{i + 1}", ha="center", va="center", fontsize=6.0, color="w", zorder=4)
+ax.add_patch(circle((cx, cy), 2.2, fc="#6aa56e", ec="k", lw=0.3, zorder=3))
+ax.text(cx, cy, "C", ha="center", va="center", fontsize=6.0, color="w", zorder=4)
 leg = ax.text(px + pw - 1.5, py + ph / 2, "V vertebra\nD disc\nC canal", ha="right",
-              va="center", fontsize=4.6, linespacing=1.15)
+              va="center", fontsize=6.0, linespacing=1.15)
 CHECKS.append((leg, (px, py, pw, ph)))
 
 # ---------------------------------------------------------------- parallel analyses
@@ -95,7 +97,7 @@ gx, gy, gw, gh = 63.0, 0.4, 58.6, 53.2
 ax.add_patch(FancyBboxPatch((gx, gy), gw, gh, boxstyle="round,pad=0,rounding_size=1.8",
                             fc=C_GRP, ec="#888", lw=0.6))
 gt = ax.text(gx + gw / 2, gy + gh - 1.2, "Parallel analyses (same protocol)", ha="center",
-             va="top", fontsize=6.0, weight="bold")
+             va="top", fontsize=6.5, weight="bold")
 CHECKS.append((gt, (gx, gy, gw, gh)))
 bw, bh = 27.0, 22.8
 # input of each analysis, as in the paper: Table 1 (R1 to R4), Table 2 and ComBat (R3, R4),

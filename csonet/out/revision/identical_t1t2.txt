@@ -1,0 +1,4 @@
+patients with both T1 and T2 (T2 SPACE excluded) = 190
+identical mean vertebral volume: 114 of 190  {'Philips': '87 of 102', 'Siemens': '27 of 88'}
+identical vertebral, disc and canal volumes: 110 of 190  {'Philips': '86 of 102', 'Siemens': '24 of 88'}
+Pearson r(n_vertebrae, spine_length_mm) = 0.859 (n=447)

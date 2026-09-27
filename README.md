@@ -38,6 +38,7 @@ neuroCombat (for the ComBat baseline). Run every script from the repository root
 | 8 | `csonet/12_permutation_rf.py` (or `csonet/kaggle_permutation_rf.py` on a Kaggle CPU notebook) | `out/revision/permutation_rf_results.txt` |
 | 9 | `csonet/13_fig_pipeline.py` | Fig. 1 (pipeline) |
 | 10 | `csonet/14_downstream_ci.py` | `out/revision/downstream_ci_results.txt` (95% CIs of Table 3; about 7 min on CPU) |
+| 11 | `csonet/15_identical_t1t2.py` | `out/revision/identical_t1t2.txt` (T1/T2 masks with identical mean vertebral volume, Sec. 3; Pearson r of Sec. 5.2) |
 
 ## Correction notice (camera-ready)
 
