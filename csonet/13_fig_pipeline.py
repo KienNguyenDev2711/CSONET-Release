@@ -29,15 +29,21 @@ def circle(xy, r, **kw):
     return Ellipse(xy, 2 * r, 2 * r * k, **kw)
 
 
-def box(x, y, w, h, title, body, fc, tfs=6.0, bfs=5.3):
+def box(x, y, w, h, title, body, fc, tfs=6.0, bfs=5.3, uses=None):
+    """uses: which representations the analysis takes as input (italic footer line)."""
     ax.add_patch(FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0,rounding_size=1.5",
                                 fc=fc, ec="#555", lw=0.6))
     t = ax.text(x + w / 2, y + h - 1.6, title, ha="center", va="top", fontsize=tfs,
                 weight="bold", linespacing=1.05)
     title_h = 1.6 + 3.3 * (title.count("\n") + 1)       # title block height, data units
-    b = ax.text(x + w / 2, y + (h - title_h) / 2, body, ha="center", va="center",
-                fontsize=bfs, linespacing=1.2)
+    foot_h = 1.5 + 2.6 if uses else 0.0
+    b = ax.text(x + w / 2, y + foot_h + (h - title_h - foot_h) / 2, body, ha="center",
+                va="center", fontsize=bfs, linespacing=1.2)
     CHECKS.extend([(t, (x, y, w, h)), (b, (x, y, w, h))])
+    if uses:   # appended right after the body so the overlap check compares the two
+        u = ax.text(x + w / 2, y + 1.5, uses, ha="center", va="bottom", fontsize=bfs,
+                    style="italic", color="#1f4e79")
+        CHECKS.append((u, (x, y, w, h)))
 
 
 def arrow(x0, y0, x1, y1):
@@ -92,10 +98,12 @@ gt = ax.text(gx + gw / 2, gy + gh - 1.2, "Parallel analyses (same protocol)", ha
              va="top", fontsize=6.0, weight="bold")
 CHECKS.append((gt, (gx, gy, gw, gh)))
 bw, bh = 27.0, 22.8
-box(64.8, 25.8, bw, bh, "Scanner\npredictability", "random forest,\ngrouped CV,\nbootstrap,\npermutation", C_EVAL)
-box(93.4, 25.8, bw, bh, "Acquisition\ncontrols", "voxel size,\ncoverage, sequence,\nfixed field,\ncase mix, ComBat", C_EVAL)
-box(64.8, 1.6, bw, bh, "Downstream\nutility", "degeneration,\nnarrowing;\nwithin and\nacross vendors", C_EVAL)
-box(93.4, 1.6, bw, bh, "Series\nnetwork", "k-NN graph (R3),\nassortativity,\ncommunities,\npatient null", C_EVAL)
+# input of each analysis, as in the paper: Table 1 (R1 to R4), Table 2 and ComBat (R3, R4),
+# Table 3 (R3, R4), Sec. 5.5 (R3)
+box(64.8, 25.8, bw, bh, "Scanner\npredictability", "random forest,\ngrouped CV,\nbootstrap,\npermutation", C_EVAL, uses="on R1 to R4")
+box(93.4, 25.8, bw, bh, "Acquisition\ncontrols", "voxel size,\ncoverage, sequence,\nfixed field,\ncase mix, ComBat", C_EVAL, uses="on R3, R4")
+box(64.8, 1.6, bw, bh, "Downstream\nutility", "degeneration,\nnarrowing;\nwithin and\nacross vendors", C_EVAL, uses="on R3, R4")
+box(93.4, 1.6, bw, bh, "Series\nnetwork", "k-NN graph,\nassortativity,\ncommunities,\npatient null", C_EVAL, uses="on R3")
 
 # ---------------------------------------------------------------- containment check
 fig.canvas.draw()
