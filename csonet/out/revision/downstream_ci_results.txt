@@ -1,0 +1,13 @@
+n_series=447 n_patients=218  R3=20 R4v2=11
+
+ target=degeneration  (positive patients 149 of 218)
+  R3               within=0.689 OOF(seed0)=0.682 95%CI[0.6041,0.7514]  S->P=0.651 P->S=0.656 cross-mean=0.654 95%CI[0.5776,0.7281]
+  R4v2             within=0.632 OOF(seed0)=0.633 95%CI[0.5513,0.7121]  S->P=0.644 P->S=0.618 cross-mean=0.631 95%CI[0.5515,0.7095]
+  R4v2-relational  within=0.550 OOF(seed0)=0.551 95%CI[0.4664,0.6304]  S->P=0.647 P->S=0.557 cross-mean=0.602 95%CI[0.5266,0.6758]
+  R4v2-spectral    within=0.559 OOF(seed0)=0.539 95%CI[0.4587,0.6176]  S->P=0.527 P->S=0.576 cross-mean=0.552 95%CI[0.4708,0.6263]
+
+ target=narrowing  (positive patients 193 of 218)
+  R3               within=0.645 OOF(seed0)=0.617 95%CI[0.5013,0.7289]  S->P=0.661 P->S=0.555 cross-mean=0.608 95%CI[0.4669,0.7446]
+  R4v2             within=0.549 OOF(seed0)=0.543 95%CI[0.4611,0.6296]  S->P=0.606 P->S=0.588 cross-mean=0.597 95%CI[0.4680,0.7232]
+  R4v2-relational  within=0.522 OOF(seed0)=0.522 95%CI[0.4278,0.6152]  S->P=0.627 P->S=0.543 cross-mean=0.585 95%CI[0.4491,0.7123]
+  R4v2-spectral    within=0.394 OOF(seed0)=0.435 95%CI[0.3156,0.5576]  S->P=0.470 P->S=0.474 cross-mean=0.472 95%CI[0.3551,0.5820]

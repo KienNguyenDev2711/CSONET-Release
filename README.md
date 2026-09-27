@@ -37,6 +37,7 @@ neuroCombat (for the ComBat baseline). Run every script from the repository root
 | 7 | `csonet/11_revision_analyses.py`, `csonet/11b_combat_diagnostic.py`, `csonet/11c_revision_extra.py` | `out/revision/revision_results.txt`, `out/revision/revision_extra_results.txt` (all numbers in the camera-ready paper; run 11c with the same Python env, about 20 min on CPU) |
 | 8 | `csonet/12_permutation_rf.py` (or `csonet/kaggle_permutation_rf.py` on a Kaggle CPU notebook) | `out/revision/permutation_rf_results.txt` |
 | 9 | `csonet/13_fig_pipeline.py` | Fig. 1 (pipeline) |
+| 10 | `csonet/14_downstream_ci.py` | `out/revision/downstream_ci_results.txt` (95% CIs of Table 3; about 7 min on CPU) |
 
 ## Correction notice (camera-ready)
 
